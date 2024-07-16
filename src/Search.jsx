@@ -1,26 +1,33 @@
 import { useEffect, useState } from 'react';
 import Pet from './Pet';
+import useListbreed from './useListbreed';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'rabitle'];
-const Breads = [];
 const Search = function () {
-  const [location, Setlocation] = useState('Tanta');
+  const [location, Setlocation] = useState('');
   const [animal, setanimal] = useState('');
   const [bread, setbread] = useState('');
+  const [Breads, isloading, Error] = useListbreed(animal);
   const [pets, setpets] = useState([]);
+
   useEffect(() => {
     requestPets();
-  }, []);
+  }, [bread]);
   async function requestPets() {
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${bread}`,
     );
     const json = await res.json();
-    console.log(json.pets);
+    // console.log(json.pets);
     setpets(json.pets);
   }
+
   return (
     <div className="search-params" style={{}}>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
         style={{
           backgroundColor: '#0cc',
           // position: 'absolute',
@@ -59,15 +66,14 @@ const Search = function () {
         </label>
 
         <label htmlFor="bread">
-          Animal
+          breed
           <select
             id="bread"
             value={bread}
             onChange={(e) => {
-              setanimal(e.target.value);
+              setbread(e.target.value);
             }}
           >
-            <option></option>;
             {Breads.map((item, index) => (
               <>
                 <option value={item} key={item}>
@@ -77,17 +83,21 @@ const Search = function () {
             ))}
           </select>
         </label>
-        <button>submmit</button>
+        <button>{isloading ? '.....' : 'submit'}</button>
       </form>
       <div style={{}}>
         {pets.map((item, index) => (
           <>
-            <Pet
-              name={item.name}
-              animal={item.animal}
-              bread={item.breed}
-              key={item.id}
-            ></Pet>
+            {Error ? (
+              <h1>fill to fitch</h1>
+            ) : (
+              <Pet
+                name={item.name}
+                animal={item.animal}
+                bread={item.breed}
+                key={item.id}
+              ></Pet>
+            )}
           </>
         ))}
       </div>

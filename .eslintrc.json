@@ -1,6 +1,15 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
-  "plugins": [],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommend",
+    "prettier"
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "react-react-in-jsx-scopre": 0
+  },
+  "plugins": ["react", "import"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -13,5 +22,15 @@
     "es6": true,
     "browser": true,
     "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "import/resolver": {
+    "node": {
+      "extensions": [".js", ".jsx"]
+    }
   }
 }

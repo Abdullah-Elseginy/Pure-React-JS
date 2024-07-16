@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import Pet from './Pet';
 import Search from './Search';
 const App = () => {
@@ -27,8 +27,8 @@ const App = () => {
   return (
     <div>
       <h1>Adot me</h1>
-      <Pet name="Cat" category="So" type="LO"></Pet>
-      <Pet name="Fog" category="So" type="LO"></Pet>
+      {/* <Pet name="Cat" category="So" type="LO"></Pet> */}
+      {/* <Pet name="Fog" category="So" type="LO"></Pet> */}
       {/* <Pet name="Dog" category="oo" type="Do"></Pet> */}
       <Search />
     </div>
@@ -36,5 +36,5 @@ const App = () => {
 };
 export default App;
 const container = document.querySelector('#root');
-const root = ReactDOM.createRoot(container);
+const root = createRoot(container);
 root.render(<App />);

@@ -1,10 +1,6 @@
-const Pet = (props) => {
-  return React.createElement('div', {}, [
-    React.createElement('h1', {id: props.id}, props.name),
-    React.createElement('h2', {id: props.id}, props.type),
-    React.createElement('h3', {id: props.id}, props.category),
-  ]);
-};
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Pet} from './Pet';
 const App = () => {
   return React.createElement('div', {id: 'mydiv', className: 'mo'}, [
     React.createElement('h1', null, 'Hola Animal'),

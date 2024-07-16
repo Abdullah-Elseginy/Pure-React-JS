@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Pet from './Pet';
 import useListbreed from './useListbreed';
+import Result from './Result';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'rabitle'];
 const Search = function () {
   const [location, Setlocation] = useState('');
@@ -11,7 +12,7 @@ const Search = function () {
 
   useEffect(() => {
     requestPets();
-  }, [bread]);
+  }, []);
   async function requestPets() {
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${bread}`,
@@ -22,18 +23,18 @@ const Search = function () {
   }
 
   return (
-    <div className="search-params" style={{}}>
+    <div className="search-params">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           requestPets();
         }}
-        style={{
-          backgroundColor: '#0cc',
-          // position: 'absolute',
-          // display: 'block',
-          alignSelf: 'center',
-        }}
+        // style={{
+        //   backgroundColor: '#0cc',
+        //   // position: 'absolute',
+        //   // display: 'block',
+        //   alignSelf: 'center',
+        // }}
       >
         <label htmlFor="location">
           <input
@@ -65,10 +66,10 @@ const Search = function () {
           </select>
         </label>
 
-        <label htmlFor="bread">
+        <label htmlFor="breed">
           breed
           <select
-            id="bread"
+            id="breed"
             value={bread}
             onChange={(e) => {
               setbread(e.target.value);
@@ -85,22 +86,8 @@ const Search = function () {
         </label>
         <button>{isloading ? '.....' : 'submit'}</button>
       </form>
-      <div style={{}}>
-        {pets.map((item, index) => (
-          <>
-            {Error ? (
-              <h1>fill to fitch</h1>
-            ) : (
-              <Pet
-                name={item.name}
-                animal={item.animal}
-                bread={item.breed}
-                key={item.id}
-              ></Pet>
-            )}
-          </>
-        ))}
-      </div>
+
+      <Result pets={pets} />
     </div>
   );
 };

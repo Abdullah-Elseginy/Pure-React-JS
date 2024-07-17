@@ -1,9 +1,20 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Pet from './Pet';
 import Search from './Search';
 import Details from './Details';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000,
+      cacheTime: Infinity,
+    },
+  },
+});
+
 const App = () => {
   // return React.createElement('div', {id: 'mydiv', className: 'mo'}, [
   //   React.createElement('h1', null, 'Hola Animal'),
@@ -28,15 +39,17 @@ const App = () => {
   // ]);
   return (
     <BrowserRouter>
-      <div>
-        <h1>
-          <Link to={'/'}>Adot me</Link>
-        </h1>
-      </div>
-      <Routes>
-        <Route path="/details/:id" element={<Details />}></Route>
-        <Route path="/" element={<Search />}></Route>
-      </Routes>
+      <QueryClientProvider client={queryClient}>
+        <header>
+          <h1>
+            <Link to={'/'}>Adot me</Link>
+          </h1>
+        </header>
+        <Routes>
+          <Route path="/details/:id" element={<Details />}></Route>
+          <Route path="/" element={<Search />}></Route>
+        </Routes>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 };

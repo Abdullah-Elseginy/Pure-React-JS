@@ -1,7 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Pet from './Pet';
 import Search from './Search';
+import Details from './Details';
 const App = () => {
   // return React.createElement('div', {id: 'mydiv', className: 'mo'}, [
   //   React.createElement('h1', null, 'Hola Animal'),
@@ -25,13 +27,17 @@ const App = () => {
   //   }),
   // ]);
   return (
-    <div>
-      <h1>Adot me</h1>
-      {/* <Pet name="Cat" category="So" type="LO"></Pet> */}
-      {/* <Pet name="Fog" category="So" type="LO"></Pet> */}
-      {/* <Pet name="Dog" category="oo" type="Do"></Pet> */}
-      <Search />
-    </div>
+    <BrowserRouter>
+      <div>
+        <h1>
+          <Link to={'/'}>Adot me</Link>
+        </h1>
+      </div>
+      <Routes>
+        <Route path="/details/:id" element={<Details />}></Route>
+        <Route path="/" element={<Search />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 export default App;

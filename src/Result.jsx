@@ -6,7 +6,7 @@ export default function Result({ pets }) {
         <h1>pets not found</h1>
       ) : (
         pets.map((item, index) => (
-          <div>
+          <div key={item.id}>
             <Pet
               //   {...item}
               name={item.name}

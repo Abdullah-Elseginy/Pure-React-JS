@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 // import React from 'react';
 const Pet = ({ name, animal, bread, images, location, id }) => {
   // return React.createElement('div', {}, [
@@ -11,7 +13,7 @@ const Pet = ({ name, animal, bread, images, location, id }) => {
     animalImage = images[0];
   }
   return (
-    <a href={`/details/${id}`} className="pet">
+    <Link to={`/details/${id}`} className="pet">
       <div className="image-container">
         <img src={animalImage} alt={name}></img>
       </div>
@@ -22,7 +24,7 @@ const Pet = ({ name, animal, bread, images, location, id }) => {
           {animal}- {bread} - {location}
         </h2>
       </div>
-    </a>
+    </Link>
   );
 };
 export default Pet;

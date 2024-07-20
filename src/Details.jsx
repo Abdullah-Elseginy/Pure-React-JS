@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import FetchPetDetails from './FetchPetDetails';
 import Carousel from './Carousel';
 import ErrorBoundery from './ErrorBoundery';
+import { useContext } from 'react';
+import AdaptedPetContext from './AdaptedPetContext';
 const Details = () => {
   const { id } = useParams();
   const result = useQuery(['details', id], FetchPetDetails);
-  console.log(result.data);
+  // console.log(result.data);
+  const [adaptedpet, setAdaptedPet] = useContext(AdaptedPetContext);
+  // console.log(adaptedpet);
+  const navigate = useNavigate();
   if (result.isLoading) {
     return (
       <div className="loading-pane">
@@ -28,7 +33,14 @@ const Details = () => {
           {' '}
           {pet.animal} {pet.breed} - {pet.city}, {pet.state}{' '}
         </h2>
-        <button>adapt {pet.name}</button>
+        <button
+          onClick={() => {
+            setAdaptedPet(pet);
+            navigate('/');
+          }}
+        >
+          adapt {pet.name}
+        </button>
         <p> {pet.description}</p>
       </div>
     </div>

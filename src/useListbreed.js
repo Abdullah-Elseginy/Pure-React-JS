@@ -1,25 +1,3 @@
-// import { useEffect, useState } from 'react';
-// const useListbreed = (animal) => {
-//   const [breedList, setbreedList] = useState([]);
-//   useEffect(() => {
-//     if (animal) {
-//       requestBreeds();
-//     }
-//   }, [animal]);
-//   async function requestBreeds() {
-//     const res = await fetch(
-//       `http://pets-v2.dev-apis.com/breeds?animal=${animal}`,
-//     );
-//     console.log(res.json());
-//     const jsonData = await res.json();
-//     setbreedList(jsonData.breeds || []);
-//     console.log(jsonData.breeds);
-//   }
-//   return [breedList];
-// };
-
-// export default useListbreed;
-
 import { useEffect, useState } from 'react';
 const localcache = {};
 

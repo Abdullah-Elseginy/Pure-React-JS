@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Pet from './Pet';
 import useListbreed from './useListbreed';
 import Result from './Result';
+import AdaptedPetContext from './AdaptedPetContext';
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'rabitle'];
 const Search = function () {
   const [location, Setlocation] = useState('');
@@ -10,9 +11,10 @@ const Search = function () {
   const [Breads, isloading, Error] = useListbreed(animal);
   const [pets, setpets] = useState([]);
   const [loader, setloader] = useState(false);
+  const [adaptedpet] = useContext(AdaptedPetContext);
 
   useEffect(() => {
-    // requestPets();
+    requestPets();
   }, []);
   async function requestPets() {
     setloader(true);
@@ -39,6 +41,11 @@ const Search = function () {
         //   alignSelf: 'center',
         // }}
       >
+        {adaptedpet ? (
+          <div className="pet image-container" style={{ marginBottom: '5px' }}>
+            <img src={adaptedpet.images[0]} alt={adaptedpet.name}></img>
+          </div>
+        ) : null}
         <label htmlFor="location">
           <input
             value={location}
